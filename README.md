@@ -63,11 +63,29 @@ developing your own process.
 - Add a new toy when the toy form is submitted
 
   - How I debugged:
+    - Received a 500 Error:
+      ```console
+      $ NameError (uninitialized constant ToysController::Toys):
+      $ app/controllers/toys_controller.rb:10:in `create'
+      ```
+    - This indicated that there was an error in the create controller method on line 10
+    - Solution: Replace Toys with Toy
 
 - Update the number of likes for a toy
 
   - How I debugged:
+    - Received a syntax error in the Console tab in Chrome Dev Tools:
+      ```console
+      $ Uncaught (in promise) SyntaxError: Unexpected end of JSON input at ToyCard.js:21:1
+      ```
+    - This indicated that the response from the server did not return JSON, so the front-end did not know how to process it
+    - Solution: Add `render json: toy, status: :accepted` to the end of the update controller method
 
 - Donate a toy to Goodwill (and delete it from our database)
 
   - How I debugged:
+    - Received a 404 error in the server logs indicating that the destroy route did not exist:
+      ```console
+      $ ActionController::RoutingError (No route matches [DELETE] "/toys/2"):
+      ```
+    - Solution: Added a :destroy route to the :toys routes in routes.rb
